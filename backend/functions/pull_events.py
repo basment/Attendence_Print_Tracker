@@ -16,9 +16,7 @@ def pull_events():
             events.append({
                 "event_id": row.event_id,
                 "event_name": row.event_name,
-                "address": row.address,
-                "city": row.city,
-                "state": row.state,
+                "Location": row.location,
                 "date": str(row.date),
                 "time": str(row.time),
                 "description": row.description
