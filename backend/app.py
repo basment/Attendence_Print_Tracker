@@ -16,9 +16,10 @@ def home():
 def handle_pull_events():
     return pull_events()
 
-@app.route("/api/registered_users", methods=["GET"])
+@app.route("/api/registered_users", methods=["POST"])
 def registered_users():
-    return registered_users()
+    return registered_user()
+
 
 if __name__ == "__main__":
     app.run(debug=True)
