@@ -2,6 +2,7 @@ from flask import Flask, jsonify
 from flask_cors import CORS
 from database import get_connection
 from functions.pull_events import pull_events
+from functions.registered_users import registered_user
 
 app = Flask(__name__)
 CORS(app)
@@ -14,6 +15,10 @@ def home():
 @app.route("/api/events", methods=["GET"])
 def handle_pull_events():
     return pull_events()
+
+@app.route("/api/register", methods=["POST"])
+def registered_users():
+    return registered_user()
 
 
 if __name__ == "__main__":
