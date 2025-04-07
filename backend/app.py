@@ -16,7 +16,7 @@ def home():
 def handle_pull_events():
     return pull_events()
 
-@app.route("/api/registered_users", methods=["POST"])
+@app.route("/api/register", methods=["POST"])
 def registered_users():
     return registered_user()
 
