@@ -5,3 +5,6 @@
 *.db
 *.log
 *.pdb
+__pycache__/
+*.pyc
+*.env
