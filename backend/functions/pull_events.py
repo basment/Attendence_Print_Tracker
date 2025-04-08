@@ -15,6 +15,7 @@ def pull_events():
         for row in rows:
             events.append({
                 "event_id": row.event_id,
+                "user_id": row.user_id,
                 "event_name": row.event_name,
                 "location": row.location,
                 "date": str(row.date),
