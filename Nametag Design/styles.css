@@ -1,0 +1,42 @@
+p, h1, h2, h3, a, button, input, select, label {
+	font-family: ocr-a-std, monospace;
+}
+
+button {
+	text-align: left;
+}
+
+.nametag-title {
+	width: 500px;
+	height: 15px;
+	resize: none;
+	display: block;
+}
+
+.menu {
+	display: inline;
+}
+
+.combo-box {
+	position: relative;
+	display: inline-block;
+}
+
+.combo-options {
+	display: none;
+	flex-direction: column;
+	position: absolute;
+	min-width: 200px;
+	z-index: 1;
+}
+
+.color-selector, .text-editor {
+	display: none;
+	margin-bottom: 5px;
+}
+
+canvas {
+	display: block;
+	border: 1px solid black;
+	margin: 25px 0px 5px;
+}

@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width"/>
+		<meta name="author" content="Ali El-Khechen"/>
+		<meta name="description" content="Nametag designer page."/>
+
+		<link rel="stylesheet" type="text/css" href="styles.css"/>
+		<script src="nametag-script.js" type="text/javascript" defer></script>
+
+		<title>Nametag Designer</title>
+	</head>
+
+	<body>
+		<header>
+			<textarea name="nametag-title" class="nametag-title" id="nametag-title" placeholder="Type your template name here...">Template</textarea>
+			<div class="menu">
+				<div class="combo-box">
+					<button class="combo-button" id="file-button">File</button>
+					<div class="combo-options" id="file-options">
+						<button onclick="exportImage()">Export...</button>
+					</div>
+				</div>
+
+				<div class="combo-box">
+					<button class="combo-button" id="edit-button">Edit</button>
+					<div class="combo-options" id="edit-options">
+						<button onclick="undo()">Undo</button>
+						<button onclick="redo()">Redo</button>
+						<button onclick="cut()">Cut</button>
+						<button onclick="copy()">Copy</button>
+						<button onclick="paste()">Paste</button>
+						<button onclick="remove()">Delete</button>
+						<button onclick="clearCanvas()">Clear</button>
+						<button>Set Canvas Size...</button>
+					</div>
+				</div>
+
+				<div class="combo-box">
+					<button class="combo-button" id="insert-button">Insert</button>
+					<div class="combo-options" id="insert-options">
+						<input type="file" id="image-selector"/>
+						<button onclick="addText('Sample Text', '16', 'Arial', 150, 100, '#000000')">Text</button>
+						<button onclick="addCircle(150, 100, 20, '#0000FF')">Circle</button>
+						<button onclick="addRect(150, 100, 30, 30, '#0000FF')">Rectangle</button>
+					</div>
+				</div>
+			</div>
+	
+			<canvas id="canvas" width="450px" height="675px"></canvas>
+
+			<div class="editor">
+				<label>Background Color:</label>
+				<input type="color" id="background-color" name="color-selector" value="#FFFFFF" onchange="drawItems();"/>
+				<label>Canvas X:<label>
+				<input type="text" id="canvas-x" style="width: 3em" placeholder="450" onchange="setCanvasX()"/>
+				<label>Canvas Y:</label>
+				<input type="text" id="canvas-y" style="width: 3em" placeholder="675" onchange="setCanvasY()"/>
+				<label class="color-selector">Shape Color:</label>
+				<input type="color" class="color-selector" id="shape-color" name="color-selector" onchange="changeItemColor();"/>
+			</div>
+
+			<div class="text-editor" id="text-editor">
+				<label>Font:</label>
+				<select name="fonts" id="fonts" onchange="changeFont()">
+					<option value="Arial">Arial</option>
+					<option value="Verdana">Verdana</option>
+					<option value="Tahoma">Tahoma</option>
+					<option value="Trebuchet MS">Trebuchet MS</option>
+					<option value="Times New Roman">Times New Roman</option>
+					<option value="Georgia">Georgia</option>
+					<option value="Garamond">Garamond</option>
+					<option value="Courier New">Courier New</option>
+					<option value="Brush Script MT">Brush Script MT</option>
+				</select>
+				<label>Size:</label>
+				<input type="text" id="text-sizes" list="sample-sizes" style="width: 3em" onchange="changeTextSize()"/>
+				<datalist id="sample-sizes">
+					<option>12</option>
+					<option>14</option>
+					<option>18</option>
+					<option>24</option>
+					<option>30</option>
+					<option>36</option>
+					<option>48</option>
+					<option>60</option>
+					<option>72</option>
+					<option>96</option>
+				</datalist>
+				<label>Content:</label>
+				<input type="text" id="text-content" placeholder="Sample Text" onchange="setText()"/>
+				<label>Bold:</label>
+				<input type="checkbox" id="bold" onchange="setBold()"/>
+				<label>Italic:</label>
+				<input type="checkbox" id="italic" onchange="setItalic()"/>
+			</div>
+		</header>
+	</body>
+</html>
