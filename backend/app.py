@@ -36,10 +36,10 @@ def registered_users():
 def handle_export_attendees(event_id, sort_field):
     return export_attendees(event_id, sort_field)
 
-
 @app.route("/api/login", methods=["POST"])
 def handle_login():
     return login_user()
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=80)
