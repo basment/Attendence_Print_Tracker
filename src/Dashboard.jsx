@@ -22,9 +22,8 @@ function CollapsibleSidebar() {
       <nav className="nav-menu">
         <a href="#" className="nav-link"><FaClipboardList />{!isCollapsed && 'Event Setup'}</a>
         <a href="#" className="nav-link"><FaUserFriends />{!isCollapsed && 'Attendance Info'}</a>
-        <a href="#" className="nav-link"><FaIdBadge />{!isCollapsed && 'Nametag Designer'}</a>
+        <Link to="/designer" className="nav-link"><FaIdBadge />{!isCollapsed && 'Nametag Designer'}</Link>
         <Link to="/registration" className="nav-link"><FaUserPlus />{!isCollapsed && 'Registration Mode'}</Link>
-        <a href="#" className="nav-link"><FaFileExport />{!isCollapsed && 'Export Data / Stats'}</a>
       </nav>
 
       <div className="nav-link logout"><FaSignOutAlt /> {!isCollapsed && 'Logout'}</div>

@@ -4,7 +4,6 @@ import './Registration.css';
 function Registration() {
   const [form, setForm] = useState({
     fullName: '',
-    job: '',
     company: '',
     email: '',
     phone: ''
@@ -23,27 +22,43 @@ function Registration() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const userData = [
-      form.fullName,
-      form.job,
-      form.company,
-      form.email,
-      form.phone
-    ];
+    try {
+      const response = await fetch("https://e780-198-30-180-104.ngrok-free.app/api/rsvp", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          name: form.fullName,
+          company: form.company,
+          email: form.email,
+          phone: form.phone,
+          event_id: 4
+        })
+      });
 
-    console.log('User Registered:', userData);
-    setShowSuccess(true);
-    setForm({
-      fullName: '',
-      job: '',
-      company: '',
-      email: '',
-      phone: ''
-    });
-  };
+      const result = await response.json();
+
+      if (response.ok) {
+        console.log("Attendee registered:", result);
+        setShowSuccess(true);
+        setForm({
+          fullName: '',
+          company: '',
+          email: '',
+          phone: ''
+        });
+      } else {
+        alert("Error: " + (result.error || "Unknown error occurred"));
+      }
+    } catch (error) {
+      console.error("Request failed:", error);
+      alert("Could not submit the form. Please try again later.");
+    }
+  }
 
   return (
     <div className="registration-container">
@@ -60,7 +75,7 @@ function Registration() {
             className="registration-input"
           />
         </label>
-
+      {/*
         <label className="registration-label">
           Job Position*:
           <input
@@ -71,7 +86,8 @@ function Registration() {
             onChange={handleChange}
             className="registration-input"
           />
-        </label>
+        </label> 
+        */}
 
         <label className="registration-label">
           Company*:

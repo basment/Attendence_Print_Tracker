@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './Signup.css';
 
 function Signup() {
+    const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -15,7 +16,7 @@ function Signup() {
             return;
         }
 
-        console.log(`Registering with Email: ${email}, Password: ${password}`);
+        console.log(`Registering with Name: ${fullName}, Email: ${email}, Password: ${password}`);
         navigate("/dashboard");
     };
 
@@ -23,6 +24,15 @@ function Signup() {
         <div className="signup-container">
             <h1>Create Account</h1>
             <form onSubmit={handleSignupSubmit}>
+                <label htmlFor="fullName">Full Name</label>
+                <input
+                    id="fullName"
+                    type="text"
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                    required
+                />
+
                 <label htmlFor="email">Email</label>
                 <input
                     id="email"
