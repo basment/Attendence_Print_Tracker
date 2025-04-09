@@ -5,9 +5,3 @@
 *.db
 *.log
 *.pdb
-__pycache__/
-*.pyc
-<<<<<<< HEAD
-=======
-*.env
->>>>>>> 5902b4c812fa4b7b57ec360eff5d77c03abc661a
