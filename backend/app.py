@@ -5,6 +5,7 @@ from functions.pull_events import pull_events
 from functions.register_attendees import register_attendees
 from functions.registered_users import registered_user
 from functions.sort_attendees import export_attendees
+from functions.event_setup import event_setup
 
 app = Flask(__name__)
 CORS(app)
@@ -16,6 +17,10 @@ def home():
 @app.route("/api/events", methods=["GET"])
 def handle_pull_events():
     return pull_events()
+
+@app.route("/api/event_setup", methods=["POST"])
+def inserting_event():
+    return event_setup()
 
 
 @app.route("/api/rsvp", methods=["POST"])
