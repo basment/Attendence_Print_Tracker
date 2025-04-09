@@ -1,11 +1,11 @@
-import email
 from flask import jsonify
-from ...database import get_connection
+from database import get_connection
 
-def name(event_id, sort_field):
+def export_attendees(event_id, sort_field):
+
     try:
         conn = get_connection()
-        cursor = conn.cursor
+        cursor = conn.cursor()
 
         query = f"""
             SELECT name, email, phone, checked_in
@@ -14,14 +14,14 @@ def name(event_id, sort_field):
             ORDER BY {sort_field}
         """
         cursor.execute(query, (event_id,))
-    
         rows = cursor.fetchall()
 
-        table = []
+        if not rows:
+            return jsonify({"message": "No attendees found."})
 
-        for row in table:
-            table.append
-            ({
+        attendees = []
+        for row in rows:
+            attendees.append({
                 "name": row.name,
                 "email": row.email,
                 "phone": row.phone,
@@ -31,7 +31,7 @@ def name(event_id, sort_field):
         cursor.close()
         conn.close()
 
-        return jsonify(table)
-        
+        return jsonify(attendees)
+
     except Exception as e:
-        return jsonify({"error": str(e)})
+        return jsonify({"error": str(e)}), 500
