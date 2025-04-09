@@ -9,17 +9,44 @@ function Signup() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const navigate = useNavigate();
 
-    const handleSignupSubmit = (e) => {
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
+
+    const handleSignupSubmit = async (e) => {
         e.preventDefault();
+    
         if (password !== confirmPassword) {
             alert("Passwords do not match");
             return;
         }
-
-        console.log(`Registering with Name: ${fullName}, Email: ${email}, Password: ${password}`);
-        navigate("/dashboard");
+    
+        try {
+            const response = await fetch("https://e780-198-30-180-104.ngrok-free.app/api/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    username: fullName,
+                    email: email,
+                    password: password
+                })
+            });
+    
+            const result = await response.json();
+    
+            if (response.ok) {
+                alert("Account created successfully!");
+                navigate("/dashboard");
+            } else {
+                alert("Signup failed: " + result.error);
+            }
+    
+        } catch (error) {
+            console.error("Signup error:", error);
+            alert("An error occurred. Please try again.");
+        }
     };
-
     return (
         <div className="signup-container">
             <h1>Create Account</h1>
