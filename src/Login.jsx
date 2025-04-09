@@ -12,7 +12,7 @@ const Login = () => {
 
     if (username && password) {
       try {
-        const response = await fetch("https://e780-198-30-180-104.ngrok-free.app/api/login", {
+        const response = await fetch("https://8319-72-241-45-75.ngrok-free.app/api/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -29,7 +29,7 @@ const Login = () => {
           alert("Login successful!");
           navigate('/dashboard');
         } else {
-          alert("Login failed: " + result.error);
+          alert("Login failed: " + (result.error || "Invalid credentials"));
         }
       } catch (error) {
         console.error("Login error:", error);
@@ -39,29 +39,35 @@ const Login = () => {
   };
 
   return (
-    <div className="login-container">
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Username:</label>
-          <input 
-            type="text" 
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Password:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit">Login</button>
-      </form>
+    <div className="login-wrapper">
+      <div className="login-box">
+        <h2>FastPass</h2>
+        <p className="subtext">Please <strong>enter your credentials</strong> to login.</p>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label>Username</label>
+            <input
+              type="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>Password</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <button type="submit" className="login-btn">Login</button>
+        </form>
+        <p className="signup-link">
+          Don’t have an account? <a href="/signup">Sign up</a>
+        </p>
+      </div>
     </div>
   );
 };
