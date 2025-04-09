@@ -27,7 +27,7 @@ const Login = () => {
 
         if (response.ok) {
           alert("Login successful!");
-          navigate('/dashboard');
+          navigate('/events');
         } else {
           alert("Login failed: " + (result.error || "Invalid credentials"));
         }

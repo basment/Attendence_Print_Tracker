@@ -77,3 +77,39 @@ body {
 .registration-container a:hover {
     text-decoration: underline;
 }
+
+.toast-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #4CAF50;
+  color: white;
+  padding: 20px;
+  border-radius: 8px;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  animation: fadeIn 0.3s ease-out;
+  text-align: center;
+  min-width: 250px;
+}
+
+.toast-popup h4 {
+  margin: 0 0 10px 0;
+  font-size: 1.2rem;
+}
+
+.toast-popup p {
+  margin: 0;
+  font-size: 1rem;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translate(-50%, -40%); }
+  to { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}

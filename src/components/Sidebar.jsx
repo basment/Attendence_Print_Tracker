@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import './Dashboard.css';
-import { FaBars, FaSignOutAlt, FaClipboardList, FaFileExport, FaIdBadge, FaUserFriends, FaUserPlus } from 'react-icons/fa';
+import { FaBars, FaSignOutAlt, FaClipboardList, FaIdBadge, FaUserPlus } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import '../Dashboard.css';
 
 function CollapsibleSidebar() {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -13,19 +13,20 @@ function CollapsibleSidebar() {
   return (
     <div className={`sidebar ${isCollapsed ? 'collapsed' : ''}`}>
       <div className="top-section">
-        <div className="logo">{!isCollapsed && <span>FastPass</span>}</div>
+        <div className="logo">{!isCollapsed && <span><strong>Fast</strong><span className="pass-text">Pass</span></span>}</div>
         <div className="toggle-btn" onClick={toggleSidebar}>
           <FaBars />
         </div>
       </div>
 
       <nav className="nav-menu">
-        <a href="#" className="nav-link"><FaClipboardList />{!isCollapsed && 'Event Setup'}</a>
+        <Link to="/events" className="nav-link"><FaClipboardList />{!isCollapsed && 'Event Setup'}</Link>
         <Link to="/designer" className="nav-link"><FaIdBadge />{!isCollapsed && 'Nametag Designer (beta)'}</Link>
         <Link to="/registration" className="nav-link"><FaUserPlus />{!isCollapsed && 'Registration Mode'}</Link>
       </nav>
 
-      <div className="nav-link logout"><FaSignOutAlt /> {!isCollapsed && 'Logout'}</div>
+      <Link to="/login" className="nav-link logout"><FaSignOutAlt /> {!isCollapsed && 'Logout'}</Link>
+      
     </div>
   );
 }

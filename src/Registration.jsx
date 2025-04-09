@@ -26,7 +26,7 @@ function Registration() {
     e.preventDefault();
 
     try {
-      const response = await fetch("https://e780-198-30-180-104.ngrok-free.app/api/rsvp", {
+      const response = await fetch("https://8319-72-241-45-75.ngrok-free.app/api/rsvp", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -136,7 +136,7 @@ function Registration() {
       {showSuccess && (
         <div className="toast-popup">
           <div className="toast-content">
-            <h4>Success!</h4>
+            <h4>Success! 🎉</h4>
             <p>Attendee registered</p>
           </div>
         </div>

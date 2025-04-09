@@ -35,6 +35,11 @@
   white-space: nowrap;
 }
 
+.pass-text {
+  color: #38bdf8; /* Light blue that complements the dark theme */
+  font-weight: normal;
+}
+
 .toggle-btn {
   font-size: 1.3rem;
   cursor: pointer;
