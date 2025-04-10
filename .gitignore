@@ -21,3 +21,15 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# backend & misc
+.vs/
+*.user
+*.suo
+*.cache
+*.db
+*.log
+*.pdb
+__pycache__/
+*.pyc
+*.env
