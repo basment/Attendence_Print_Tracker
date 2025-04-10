@@ -2,7 +2,8 @@
   padding: 20px;
   font-family: ocr-a-std, monospace;
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 60px auto 0;
+  padding-top: 20px;
 }
 
 .nametag-title {
@@ -17,20 +18,89 @@
 }
 
 .menu-bar {
+  position: fixed;
+  top: 0;
+  left: 250px;
+  right: 0;
   display: flex;
   gap: 10px;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
+  background-color: #1e293b;
+  padding: 10px;
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: thin;
+  scrollbar-color: #334155 #1e293b;
+  z-index: 999;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.menu-bar::-webkit-scrollbar {
+  height: 6px;
+}
+
+.menu-bar::-webkit-scrollbar-track {
+  background: #1e293b;
+}
+
+.menu-bar::-webkit-scrollbar-thumb {
+  background-color: #334155;
+  border-radius: 3px;
+}
+
+.menu-item {
+  position: relative;
 }
 
 .menu-button {
   padding: 8px 16px;
-  background: #f0f0f0;
-  border: 1px solid #ddd;
+  background: transparent;
+  border: none;
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.2s;
   min-width: 60px;
+  color: white;
+}
+
+.menu-button:hover {
+  background-color: #334155;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  z-index: 100;
+  min-width: 150px;
+}
+
+.dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 8px 16px;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #333;
+  transition: background 0.2s;
+}
+
+.dropdown-item:hover {
+  background-color: #f0f0f0;
+}
+
+.dropdown-item:disabled {
+  color: #999;
+  cursor: not-allowed;
+}
+
+.dropdown-item:disabled:hover {
+  background-color: transparent;
 }
 
 .copy-paste-group {
@@ -44,7 +114,7 @@
 }
 
 .canvas-wrapper {
-  margin: 20px 0;
+  margin: 80px 0 20px;
   display: flex;
   justify-content: center;
 }
@@ -53,6 +123,8 @@
   border: 1px solid #000;
   background: #fff;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  width: 800px;
+  height: 600px;
 }
 
 .control-panel {

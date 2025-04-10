@@ -1,6 +1,7 @@
 // NametagDesigner.jsx
 import React, { useRef, useEffect, useState } from 'react';
 import './NametagDesign.css';
+import MenuBar from './components/MenuBar';
 
 const NametagDesigner = () => {
   const canvasRef = useRef(null);
@@ -495,67 +496,24 @@ const NametagDesigner = () => {
         onChange={e => setTitle(e.target.value)}
         placeholder="Enter template name"
       />
-      <div className="menu-bar">
-        <button className="menu-button" onClick={handleExport}>Export Design</button>
-        <button className="menu-button" onClick={handleAddText}>Add Text</button>
-        <button className="menu-button" onClick={handleAddCircle}>Add Circle</button>
-        <button className="menu-button" onClick={handleAddRect}>Add Rectangle</button>
-        <button 
-          className="menu-button" 
-          onClick={handleDelete}
-          disabled={selectedItem === null}
-        >
-          Delete Selected
-        </button>
-        <button
-          className="menu-button"
-          onClick={handleUndo}
-          disabled={undoStack.length === 0}
-        >
-          Undo
-        </button>
-          <button
-            className="menu-button"
-            onClick={handleRedo}
-            disabled={redoStack.length === 0}
-          >
-            Redo
-          </button>
-          <button
-            className="menu-button"
-            onClick={handleCopy}
-            disabled={selectedItem === null}
-          >
-            Copy
-          </button>
-          <button
-            className="menu-button"
-            onClick={handlePaste}
-            disabled={!copiedItem}
-          >
-            Paste
-          </button>
-          <button
-            className="menu-button"
-            onClick={handleCopySelectedText}
-            disabled={selectedItem === null || items[selectedItem].type !== 'text' || selectionStart === selectionEnd}
-          >
-            Copy Selected Text
-          </button>
-          <button
-            className="menu-button"
-            onClick={handleClearCanvas}
-            disabled={items.length === 0}
-          >
-            Clear Canvas
-          </button>
-          <button
-            className="menu-button"
-            onClick={handleAddImage}
-          >
-            Add Image
-          </button>
-      </div>
+      <MenuBar 
+        onExport={handleExport}
+        onAddText={handleAddText}
+        onAddCircle={handleAddCircle}
+        onAddRect={handleAddRect}
+        onAddImage={handleAddImage}
+        onDelete={handleDelete}
+        onUndo={handleUndo}
+        onRedo={handleRedo}
+        onCopy={handleCopy}
+        onPaste={handlePaste}
+        onClearCanvas={handleClearCanvas}
+        canUndo={undoStack.length > 0}
+        canRedo={redoStack.length > 0}
+        canCopy={selectedItem !== null}
+        canPaste={copiedItem !== null}
+        canDelete={selectedItem !== null}
+      />
       <div className="canvas-wrapper">
         <canvas
           ref={canvasRef}
