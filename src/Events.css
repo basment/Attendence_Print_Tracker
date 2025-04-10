@@ -1,0 +1,102 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #161E2F; /* deep navy background */
+  color: #f1f5f9;
+  height: 100vh;
+}
+
+.events-page {
+  padding: 40px;
+}
+
+.events-page h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #ffffff;
+}
+
+.events-container {
+  background-color: #1B2638; /* container bg */
+  border-radius: 12px;
+  width: 600px;
+  height: 300px;
+  margin: 0 auto;
+  padding: 20px;
+  box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.4);
+  position: relative;
+}
+
+.events-controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.create-button {
+  padding: 4px 10px;
+  font-size: 1rem;
+  border: 1px solid #3B82F6;
+  background-color: transparent;
+  color: #3B82F6;
+  border-radius: 6px;
+  width: 40px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.create-button:hover {
+  background-color: #3B82F6;
+  color: white;
+  border-color: #3B82F6;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  border: 1px solid #50505E;
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: #1E293B;
+}
+
+.search-input {
+  padding: 8px 12px;
+  border: none;
+  outline: none;
+  font-size: 0.95rem;
+  width: 200px;
+  background-color: transparent;
+  color: #f8fafc;
+}
+
+.search-input::placeholder {
+  color: #A8B1BE;
+}
+
+.search-icon {
+  padding: 8px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: #A8B1BE;
+  font-size: 1rem;
+  position:relative;
+  top:2px;
+  left:2px;
+}
+
+.search-icon:hover{
+  color:#f1f5f9;
+  background: transparent;
+}
+
+.empty-message {
+  text-align: center;
+  color: #A8B1BE;
+  margin-top: 80px;
+  font-size: 0.95rem;
+}
