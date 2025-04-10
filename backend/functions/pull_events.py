@@ -1,11 +1,16 @@
 from flask import jsonify
 from database import get_connection
 
-def pull_events():
+def pull_events(user_id):
     try:
         conn = get_connection()
         cursor = conn.cursor()
-        cursor.execute("SELECT * FROM events")
+
+        cursor.execute(
+            "SELECT * FROM events WHERE user_id = ?",
+            (user_id,)
+        )
+
         rows = cursor.fetchall()
 
         if not rows:
@@ -14,8 +19,6 @@ def pull_events():
         events = []
         for row in rows:
             events.append({
-                "event_id": row.event_id,
-                "user_id": row.user_id,
                 "event_name": row.event_name,
                 "location": row.location,
                 "date": str(row.date),
@@ -25,7 +28,7 @@ def pull_events():
 
         cursor.close()
         conn.close()
-        return jsonify(events)
+        return jsonify(events), 200
 
     except Exception as e:
-        return jsonify({"error": str(e)})
+        return jsonify({"error": str(e)}), 500

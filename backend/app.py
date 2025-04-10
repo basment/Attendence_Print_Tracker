@@ -15,9 +15,9 @@ CORS(app)
 def home():
     return jsonify({"message": " Event Planner API is running!"})
 
-@app.route("/api/events", methods=["GET"])
-def handle_pull_events():
-    return pull_events()
+@app.route("/api/events/<int:user_id>", methods=["GET"])
+def handle_pull_events(user_id):
+    return pull_events(user_id)
 
 @app.route("/api/event_setup", methods=["POST"])
 def inserting_event():
