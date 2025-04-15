@@ -7,6 +7,7 @@ from functions.registered_users import registered_user
 from functions.sort_attendees import export_attendees
 from functions.event_setup import event_setup
 from functions.login import login_user
+from functions.full_print_functions import generate_and_print_nametag
 
 app = Flask(__name__)
 CORS(app)
@@ -40,6 +41,20 @@ def handle_export_attendees(event_id, sort_field):
 def handle_login():
     return login_user()
 
+@app.route("/api/print-nametag", methods=["POST"])
+def handle_print_nametag():
+    data = request.get_json()
+    attendee_id = data.get("attendee_id")
+
+    if not attendee_id:
+        return jsonify({"error": "attendee_id is required"}), 400
+
+    result = generate_and_print_nametag(attendee_id)
+
+    if "error" in result:
+        return jsonify(result), 404
+    return jsonify(result), 200
+
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=80)
+    app.run(host="0.0.0.0", port=5000)

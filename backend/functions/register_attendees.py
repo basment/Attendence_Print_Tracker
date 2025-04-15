@@ -8,13 +8,15 @@ def register_attendees():
         email = data.get("email")
         phone = data.get("phone")
         event_id = data.get("event_id")
+        job = data.get("job")
+        company = data.get("company")
 
         conn = get_connection()
         cursor = conn.cursor()
 
         cursor.execute(
-            "INSERT INTO attendees (event_id, name, email, phone, checked_in) VALUES (?, ?, ?, ?, ?)",
-            (event_id, name, email, phone, 0)
+            "INSERT INTO attendees (event_id, name, email, phone, checked_in, job, company) VALUES (?, ?, ?, ?, ?, ?, ?)",
+            (event_id, name, email, phone, 0, job, company)
         )
 
         conn.commit()
