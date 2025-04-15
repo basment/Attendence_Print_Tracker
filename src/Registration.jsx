@@ -26,7 +26,7 @@ function Registration() {
     e.preventDefault();
 
     try {
-        const response = await fetch("http://fastpassbackend.duckdns.org/api/rsvp", {
+        const response = await fetch("http://192.168.1.11:5000/api/rsvp", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
