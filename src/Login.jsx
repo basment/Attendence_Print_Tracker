@@ -11,8 +11,8 @@ const Login = () => {
     e.preventDefault();
 
     if (username && password) {
-      try {72
-          const response = await fetch("https://fcec-72-241-45-75.ngrok-free.app/api/login", {
+      try {
+          const response = await fetch("http://fastpassbackend.duckdns.org/api/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
