@@ -26,7 +26,7 @@ function Registration() {
     e.preventDefault();
 
     try {
-      const response = await fetch("https://8319-72-241-45-75.ngrok-free.app/api/rsvp", {
+        const response = await fetch("https://fcec-72-241-45-75.ngrok-free.app/api/rsvp", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
