@@ -1,14 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { FaBars, FaSignOutAlt, FaClipboardList, FaIdBadge, FaUserPlus } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import '../Dashboard.css';
+import { SidebarContext } from '../SidebarContext';
 
 function CollapsibleSidebar() {
-  const [isCollapsed, setIsCollapsed] = useState(false);
-
-  const toggleSidebar = () => {
-    setIsCollapsed(!isCollapsed);
-  };
+  const { isCollapsed, toggleSidebar } = useContext(SidebarContext);
 
   return (
     <div className={`sidebar ${isCollapsed ? 'collapsed' : ''}`}>
