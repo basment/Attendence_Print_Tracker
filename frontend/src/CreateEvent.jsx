@@ -1,13 +1,19 @@
-// CreateEvent.jsx
-
-import React, { useState } from 'react';
-import { FaPlus, FaClock } from 'react-icons/fa';
+import React, { useState, useContext } from 'react';
+import { FaPlus } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import TimePicker from 'react-time-picker';
+import 'react-time-picker/dist/TimePicker.css';
+import 'react-clock/dist/Clock.css';
 import './CreateEvent.css';
+import { EventsContext } from './EventsContext';
 
 function CreateEvent() {
+  const navigate = useNavigate();
+  const { addEvent } = useContext(EventsContext);
   const [event, setEvent] = useState({
     name: '',
     date: '',
+    time: '',
     location: '',
     description: ''
   });
@@ -21,30 +27,14 @@ function CreateEvent() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      const response = await fetch("/api/events", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(event)
-      });
+    // Log the event name
+    console.log("Event name:", event.name);
 
-      if (response.ok) {
-        setShowSuccess(true);
-        setEvent({
-          name: '',
-          date: '',
-          location: '',
-          description: ''
-        });
-      } else {
-        alert("Error creating event");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      alert("Failed to create event");
-    }
+    // Add event to context
+    addEvent(event);
+
+    // Navigate to /events
+    navigate('/events');
   };
 
   return (
@@ -62,13 +52,22 @@ function CreateEvent() {
               value={event.name}
               onChange={handleChange}
             />
-<button type="button" className="inline-button" onClick={() => setShowDescriptionPopup(true)}><FaPlus style={{ marginRight: '9px', fontSize: '10px' }} />Add description</button>
+            <button
+              type="button"
+              className="inline-button"
+              onClick={() => setShowDescriptionPopup(true)}
+            >
+              <FaPlus style={{ marginRight: '9px', fontSize: '10px' }} />
+              Add description
+            </button>
             {showDescriptionPopup && (
               <div className="description-popup">
                 <textarea
                   placeholder="Write your description here..."
                   value={event.description}
-                  onChange={(e) => setEvent({ ...event, description: e.target.value })}
+                  onChange={(e) =>
+                    setEvent({ ...event, description: e.target.value })
+                  }
                 />
                 <button onClick={() => setShowDescriptionPopup(false)}>Close</button>
               </div>
@@ -86,29 +85,15 @@ function CreateEvent() {
               onChange={handleChange}
             />
 
-          <label className="starts-at-text">Time</label>
-          <div className="time-input-container">
-            <input
-              type="time"
-              name="time"
-              value={event.time || ''}
-              onChange={(e) => setEvent({ ...event, time: e.target.value })}
-              className="time-input"
-            />
-            <FaClock
-              className="clock-icon"
-              onClick={() => {
-                const timeInput = document.querySelector('.time-input');
-                if (timeInput) {
-                  timeInput.showPicker?.() || timeInput.focus();
-                }
-              }}
-            />
-          </div>
-
-          <label className="duration-text">Duration</label>
-          <input type="text" placeholder="3h 45m" className="duration-input" />
-
+            <label className="starts-at-text">Time</label>
+              <TimePicker
+                onChange={(value) => setEvent({ ...event, time: value })}
+                value={event.time}
+                disableClock={true}
+                clearIcon={null}
+                className="custom-time-picker"
+                format="hh:mm a"
+              />
           </div>
           <small>This event will take place on the selected date and time</small>
         </div>
@@ -127,9 +112,19 @@ function CreateEvent() {
           </div>
         </div>
 
-        <button type="submit" className="inline-button" style={{ width: '100%' }}>
-          Create Event
-        </button>
+        <div className="button-group" style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
+          <button
+            type="button"
+            className="inline-button cancel-button"
+            onClick={() => navigate('/events')}
+          >
+            Cancel
+          </button>
+
+          <button type="submit" className="inline-button create-event-button">
+            Create Event
+          </button>
+        </div>
       </form>
 
       {showSuccess && (

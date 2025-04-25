@@ -489,184 +489,223 @@ const NametagDesigner = () => {
   }, [selectedItem, items, undoStack, redoStack]);
 
   return (
-    <div className="nametag-container" tabIndex="0">
-      <textarea
-        className="nametag-title"
-        value={title}
-        onChange={e => setTitle(e.target.value)}
-        placeholder="Enter template name"
-      />
-      <MenuBar 
-        onExport={handleExport}
-        onAddText={handleAddText}
-        onAddCircle={handleAddCircle}
-        onAddRect={handleAddRect}
-        onAddImage={handleAddImage}
-        onDelete={handleDelete}
-        onUndo={handleUndo}
-        onRedo={handleRedo}
-        onCopy={handleCopy}
-        onPaste={handlePaste}
-        onClearCanvas={handleClearCanvas}
-        canUndo={undoStack.length > 0}
-        canRedo={redoStack.length > 0}
-        canCopy={selectedItem !== null}
-        canPaste={copiedItem !== null}
-        canDelete={selectedItem !== null}
-      />
-      <div className="canvas-wrapper">
-        <canvas
-          ref={canvasRef}
-          width={canvasWidth}
-          height={canvasHeight}
-          className="design-canvas"
-          onMouseDown={handleCanvasMouseDown}
-          onMouseMove={handleCanvasMouseMove}
-          onMouseUp={handleCanvasMouseUp}
-          onMouseLeave={handleCanvasMouseUp}
-        ></canvas>
+    <div className="designer-shell" tabIndex="0">
+        <MenuBar 
+          onExport={handleExport}
+          onAddText={handleAddText}
+          onAddCircle={handleAddCircle}
+          onAddRect={handleAddRect}
+          onAddImage={handleAddImage}
+          onDelete={handleDelete}
+          onUndo={handleUndo}
+          onRedo={handleRedo}
+          onCopy={handleCopy}
+          onPaste={handlePaste}
+          onClearCanvas={handleClearCanvas}
+          canUndo={undoStack.length > 0}
+          canRedo={redoStack.length > 0}
+          canCopy={selectedItem !== null}
+          canPaste={copiedItem !== null}
+          canDelete={selectedItem !== null}
+        />
+      
+      <div className="content-container">
+
+        <div className="template-title-wrapper">
+          <textarea
+            className="template-title"
+            value={title}
+            onChange={e => setTitle(e.target.value)}
+            placeholder="Enter template name"
+          />
+        </div>
+
+
+        <div className="designer-layout">
+          
+          <div className="canvas-wrapper">
+            <canvas
+              ref={canvasRef}
+              width={canvasWidth}
+              height={canvasHeight}
+              className="design-canvas"
+              onMouseDown={handleCanvasMouseDown}
+              onMouseMove={handleCanvasMouseMove}
+              onMouseUp={handleCanvasMouseUp}
+              onMouseLeave={handleCanvasMouseUp}
+            ></canvas>
+          </div>
+
+          <div className="control-panel">
+            
+            <div className="control-section">
+              <h3 className="section-title">Canvas Settings</h3>
+              <div className="control-group">
+                <label className="control-label">Background Color:</label>
+                <input
+                  type="color"
+                  className="control-input color-picker"
+                  value={backgroundColor}
+                  onChange={e => setBackgroundColor(e.target.value)}
+                />
+              </div>
+
+              <div className="control-group">
+                <label className="control-label">Canvas Width:</label>
+                <input
+                  type="number"
+                  className="control-input"
+                  value={canvasWidth}
+                  onChange={e => {
+                    let val = Math.max(CANVAS_SIZE_LOWER_BOUND, Math.min(CANVAS_SIZE_UPPER_BOUND, parseInt(e.target.value) || 0));
+                    setCanvasWidth(val);
+                  }}
+                />
+              </div>
+
+              <div className="control-group">
+                <label className="control-label">Canvas Height:</label>
+                <input
+                  type="number"
+                  className="control-input"
+                  value={canvasHeight}
+                  onChange={e => {
+                    let val = Math.max(CANVAS_SIZE_LOWER_BOUND, Math.min(CANVAS_SIZE_UPPER_BOUND, parseInt(e.target.value) || 0));
+                    setCanvasHeight(val);
+                  }}
+                />
+              </div>
+
+              <div className="control-group">
+                <label className="control-label">Shape Color:</label>
+                <input
+                  type="color"
+                  className="control-input color-picker"
+                  value={shapeColor}
+                  onChange={e => setShapeColor(e.target.value)}
+                />
+              </div>
+            </div>
+
+            <div className="control-section">
+              <h3 className="section-title">Image Settings</h3>
+              <div className="control-group">
+                <label className="control-label">Border Width:</label>
+                <input
+                  type="number"
+                  className="control-input"
+                  min="0"
+                  max="20"
+                  value={selectedItem !== null && items[selectedItem]?.type === 'image' ? items[selectedItem].borderWidth : 0}
+                  onChange={e => {
+                    if (selectedItem !== null && items[selectedItem]?.type === 'image') {
+                      const newItems = [...items];
+                      newItems[selectedItem].borderWidth = parseInt(e.target.value) || 0;
+                      setItems(newItems);
+                    }
+                  }}
+                  disabled={selectedItem === null || items[selectedItem]?.type !== 'image'}
+                />
+              </div>
+
+              <div className="control-group">
+                <label className="control-label">Border Color:</label>
+                <input
+                  type="color"
+                  className="control-input color-picker"
+                  value={selectedItem !== null && items[selectedItem]?.type === 'image' ? items[selectedItem].borderColor : '#000000'}
+                  onChange={e => {
+                    if (selectedItem !== null && items[selectedItem]?.type === 'image') {
+                      const newItems = [...items];
+                      newItems[selectedItem].borderColor = e.target.value;
+                      setItems(newItems);
+                    }
+                  }}
+                  disabled={selectedItem === null || items[selectedItem]?.type !== 'image'}
+                />
+              </div>
+            </div>
+
+            <div className="control-section">
+            
+              <h3 className="section-title">Text Settings</h3>
+              
+              <div className="control-group">
+                <label className="control-label">Font:</label>
+                <select 
+                  className="control-input"
+                  value={font} 
+                  onChange={e => setFont(e.target.value)}
+                >
+                  <option value="Arial">Arial</option>
+                  <option value="Verdana">Verdana</option>
+                  <option value="Tahoma">Tahoma</option>
+                  <option value="Trebuchet MS">Trebuchet MS</option>
+                  <option value="Times New Roman">Times New Roman</option>
+                  <option value="Georgia">Georgia</option>
+                  <option value="Garamond">Garamond</option>
+                  <option value="Courier New">Courier New</option>
+                  <option value="Brush Script MT">Brush Script MT</option>
+                </select>
+              
+              </div>
+
+              <div className="control-group">
+              
+                <label className="control-label">Size:</label>
+                <input
+                  type="number"
+                  className="control-input"
+                  value={textSize}
+                  min={TEXT_SIZE_LOWER_BOUND}
+                  max={TEXT_SIZE_UPPER_BOUND}
+                  onChange={e => setTextSize(parseInt(e.target.value))}
+                />
+              
+              </div>
+
+              <div className="control-group">
+              
+                <label className="control-label">Content:</label>
+                <input
+                  type="text"
+                  className="control-input"
+                  value={textContent}
+                  onChange={e => setTextContent(e.target.value)}
+                />
+              
+              </div>
+              
+              <div className="control-group checkbox-group">
+              
+                <label className="control-label">Bold:</label>
+                <input
+                  type="checkbox"
+                  checked={bold}
+                  onChange={e => setBold(e.target.checked)}
+                />
+              
+              </div>
+
+              <div className="control-group checkbox-group">
+              
+                <label className="control-label">Italic:</label>
+                <input
+                  type="checkbox"
+                  checked={italic}
+                  onChange={e => setItalic(e.target.checked)}
+                />
+              
+              </div>
+            
+            </div>
+          
+          </div>
+
+        </div>
+
       </div>
-      <div className="control-panel">
-        <div className="control-section">
-          <h3 className="section-title">Canvas Settings</h3>
-          <div className="control-group">
-            <label className="control-label">Background Color:</label>
-            <input
-              type="color"
-              className="control-input color-picker"
-              value={backgroundColor}
-              onChange={e => setBackgroundColor(e.target.value)}
-            />
-          </div>
-          <div className="control-group">
-            <label className="control-label">Canvas Width:</label>
-            <input
-              type="number"
-              className="control-input"
-              value={canvasWidth}
-              onChange={e => {
-                let val = Math.max(CANVAS_SIZE_LOWER_BOUND, Math.min(CANVAS_SIZE_UPPER_BOUND, parseInt(e.target.value) || 0));
-                setCanvasWidth(val);
-              }}
-            />
-          </div>
-          <div className="control-group">
-            <label className="control-label">Canvas Height:</label>
-            <input
-              type="number"
-              className="control-input"
-              value={canvasHeight}
-              onChange={e => {
-                let val = Math.max(CANVAS_SIZE_LOWER_BOUND, Math.min(CANVAS_SIZE_UPPER_BOUND, parseInt(e.target.value) || 0));
-                setCanvasHeight(val);
-              }}
-            />
-          </div>
-          <div className="control-group">
-            <label className="control-label">Shape Color:</label>
-            <input
-              type="color"
-              className="control-input color-picker"
-              value={shapeColor}
-              onChange={e => setShapeColor(e.target.value)}
-            />
-          </div>
-        </div>
-        <div className="control-section">
-          <h3 className="section-title">Image Settings</h3>
-          <div className="control-group">
-            <label className="control-label">Border Width:</label>
-            <input
-              type="number"
-              className="control-input"
-              min="0"
-              max="20"
-              value={selectedItem !== null && items[selectedItem]?.type === 'image' ? items[selectedItem].borderWidth : 0}
-              onChange={e => {
-                if (selectedItem !== null && items[selectedItem]?.type === 'image') {
-                  const newItems = [...items];
-                  newItems[selectedItem].borderWidth = parseInt(e.target.value) || 0;
-                  setItems(newItems);
-                }
-              }}
-              disabled={selectedItem === null || items[selectedItem]?.type !== 'image'}
-            />
-          </div>
-          <div className="control-group">
-            <label className="control-label">Border Color:</label>
-            <input
-              type="color"
-              className="control-input color-picker"
-              value={selectedItem !== null && items[selectedItem]?.type === 'image' ? items[selectedItem].borderColor : '#000000'}
-              onChange={e => {
-                if (selectedItem !== null && items[selectedItem]?.type === 'image') {
-                  const newItems = [...items];
-                  newItems[selectedItem].borderColor = e.target.value;
-                  setItems(newItems);
-                }
-              }}
-              disabled={selectedItem === null || items[selectedItem]?.type !== 'image'}
-            />
-          </div>
-        </div>
-        <div className="control-section">
-          <h3 className="section-title">Text Settings</h3>
-          <div className="control-group">
-            <label className="control-label">Font:</label>
-            <select 
-              className="control-input"
-              value={font} 
-              onChange={e => setFont(e.target.value)}
-            >
-              <option value="Arial">Arial</option>
-              <option value="Verdana">Verdana</option>
-              <option value="Tahoma">Tahoma</option>
-              <option value="Trebuchet MS">Trebuchet MS</option>
-              <option value="Times New Roman">Times New Roman</option>
-              <option value="Georgia">Georgia</option>
-              <option value="Garamond">Garamond</option>
-              <option value="Courier New">Courier New</option>
-              <option value="Brush Script MT">Brush Script MT</option>
-            </select>
-          </div>
-          <div className="control-group">
-            <label className="control-label">Size:</label>
-            <input
-              type="number"
-              className="control-input"
-              value={textSize}
-              min={TEXT_SIZE_LOWER_BOUND}
-              max={TEXT_SIZE_UPPER_BOUND}
-              onChange={e => setTextSize(parseInt(e.target.value))}
-            />
-          </div>
-          <div className="control-group">
-            <label className="control-label">Content:</label>
-            <input
-              type="text"
-              className="control-input"
-              value={textContent}
-              onChange={e => setTextContent(e.target.value)}
-            />
-          </div>
-          <div className="control-group checkbox-group">
-            <label className="control-label">Bold:</label>
-            <input
-              type="checkbox"
-              checked={bold}
-              onChange={e => setBold(e.target.checked)}
-            />
-          </div>
-          <div className="control-group checkbox-group">
-            <label className="control-label">Italic:</label>
-            <input
-              type="checkbox"
-              checked={italic}
-              onChange={e => setItalic(e.target.checked)}
-            />
-          </div>
-        </div>
-      </div>
+      
     </div>
   );
 };

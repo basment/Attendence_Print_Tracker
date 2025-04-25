@@ -5,7 +5,6 @@
   padding: 32px;
   border-radius: 12px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-
   position: relative;
   bottom: 60px;
 }
@@ -14,6 +13,7 @@
   font-size: 1.8rem;
   margin-bottom: 24px;
   color: #ffffff;
+  text-align: left;
 }
 
 .create-event-form-group {
@@ -31,12 +31,6 @@
   position: relative;
   top: -35px;
   left: 40px;
-}
-
-.duration-text {
-  position: relative;
-  top: -35px;
-  left: 70px;
 }
 
 .create-event-form-group input {
@@ -71,6 +65,10 @@ input[type="date"]::-webkit-datetime-edit {
   font-weight: 500;
   cursor: pointer;
   transition: background 0.3s;
+  width:100px;
+  flex:none;
+  justify-content: center;
+  align-items: center;
 }
 
 .create-event-form-group .inline-button:hover {
@@ -92,7 +90,7 @@ input[type="date"]::-webkit-datetime-edit {
 
 .input-with-button input {
   width: 100%;
-  padding-right: 110px; /* space for button */
+  padding-right: 110px;
   box-sizing: border-box;
 }
 
@@ -101,7 +99,7 @@ input[type="date"]::-webkit-datetime-edit {
   right: 5px;
   top: 50%;
   transform: translateY(-50%);
-  width: 160px;
+  width: 180px;
   height: 36px;
   font-size: 15px;
   border-radius: 8px;
@@ -111,7 +109,6 @@ input[type="date"]::-webkit-datetime-edit {
   font-weight: 500;
   cursor: pointer;
   transition: background 0.3s;
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -119,16 +116,6 @@ input[type="date"]::-webkit-datetime-edit {
 
 .input-with-button .inline-button:hover {
   background-color: #0056b3;
-}
-
-.duration-input {
-  width: 100px;
-  padding: 12px;
-  background-color: #111827;
-  color: #f1f5f9;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 1rem;
 }
 
 .location-input {
@@ -146,7 +133,7 @@ input[type="date"]::-webkit-datetime-edit {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #49638d;
+  background-color: #111827;
   border: 1px solid #111827;
   border-radius: 8px;
   padding: 20px;
@@ -165,7 +152,6 @@ input[type="date"]::-webkit-datetime-edit {
   color: #f1f5f9;
   margin-bottom: 15px;
   resize: none;
-
   position: relative;
   right: 12px;
 }
@@ -178,38 +164,113 @@ input[type="date"]::-webkit-datetime-edit {
   border-radius: 8px;
   cursor: pointer;
   transition: background 0.3s;
+
+  width:100px;
+  height:40px;
+}
+
+.description-popup textarea::placeholder {
+  color: #a8b1be;
+  font-family: 'Segoe UI', sans-serif;
 }
 
 .description-popup button:hover {
   background-color: #0056b3;
 }
 
-.time-input-container {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 0;
-  width: auto;
-}
 
-.time-input {
-  border-radius: 8px;
-  border: 1px solid #111827;
-  padding: 6px 10px 6px 10px;
-  padding-right: 36px;
-  font-size: 1rem;
+/* Custom dark mode styling for react-time-picker */
+.custom-time-picker {
   background-color: #111827;
   color: #f1f5f9;
-  width: 160px;
-  min-width: 160px;
+  border: 1px solid #111827;
+  border-radius: 8px;
+  font-size: 1rem;
+  padding: 6px 10px;
+  width: 120px;
+  margin-left: -10px;
 }
 
-.clock-icon {
-  position: relative;
-  right: 43px;
-  top: 9px;
-  transform: translateY(-50%);
-  color: #ffffff;
+.custom-time-picker .react-time-picker__wrapper {
+  background-color: #111827;
+  border: none;
+  border-radius: 8px;
+}
+
+.custom-time-picker .react-time-picker__inputGroup {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.custom-time-picker .react-time-picker__inputGroup__input {
+  background-color: #111827;
+  color: #f1f5f9;
+  border: none;
+  font-size: 1rem;
+  padding: 4px 6px;
+  border-radius: 4px;
+}
+
+.custom-time-picker .react-time-picker__inputGroup__divider,
+.custom-time-picker .react-time-picker__leadingZero {
+  color: #f1f5f9;
+}
+
+.custom-time-picker .react-time-picker__button {
+  display: none;
+}
+
+.react-clock {
+  background-color: #1E293B !important;
+  border-radius: 8px;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.cancel-button {
+  background-color: #46546b74;
+  color: white;
+  border-radius: 8px;
+  border: none;
+  padding: 12px 20px;
+  font-weight: 500;
   cursor: pointer;
-  font-size: 18px;
+  transition: background 0.3s;
+  flex: none;
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cancel-button:hover {
+  background-color: #b02a37;
+}
+
+.create-event-button {
+  background-color: #007bff;
+  color: white;
+  border-radius: 8px;
+  border: none;
+  padding: 12px 20px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s;
+  width: 135px;
+  flex: none;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.create-event-button:hover {
+  background-color: #0056b3;
 }
